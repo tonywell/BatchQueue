@@ -1,0 +1,29 @@
+group 'com.tds'
+version '0.0.1'
+
+apply plugin: 'java'
+
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = "${buildDir}/classes/main"
+    }
+}
+
+task createJavaProject << {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs()}
+}
+
+dependencies {
+    compile(
+            'org.slf4j:slf4j-api:1.7.21'
+    )
+}
