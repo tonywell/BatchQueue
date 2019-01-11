@@ -1,11 +1,20 @@
-group 'com.tds'
+group 'com.zhehekeji'
 version '0.0.1'
 
 apply plugin: 'java'
 
-[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = "UTF-8"
+}
 
-sourceCompatibility = 1.7
+compileTestJava {
+    sourceCompatibility = 1.8  // can be switched to 11 for testing
+    targetCompatibility = 1.8
+    options.encoding = "UTF-8"
+    options.compilerArgs += "-parameters"
+}
 
 repositories {
     mavenCentral()
@@ -15,11 +24,6 @@ sourceSets {
     main {
         output.resourcesDir = "${buildDir}/classes/main"
     }
-}
-
-task createJavaProject << {
-    sourceSets*.java.srcDirs*.each { it.mkdirs() }
-    sourceSets*.resources.srcDirs*.each { it.mkdirs()}
 }
 
 dependencies {
